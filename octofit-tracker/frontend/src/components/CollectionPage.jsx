@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getCollectionUrl, normalizeCollectionResponse } from '../api.js'
+import { normalizeCollectionResponse } from '../api.js'
 
 function formatValue(value) {
   if (value === null || value === undefined || value === '') return '—'
@@ -14,8 +14,7 @@ function recordTitle(record, index) {
   return titleKey ? formatValue(record[titleKey]) : `Record ${index + 1}`
 }
 
-function CollectionPage({ resource, title, description }) {
-  const endpoint = getCollectionUrl(resource)
+function CollectionPage({ resource, title, description, endpoint }) {
   const [url, setUrl] = useState(endpoint)
   const [reloadKey, setReloadKey] = useState(0)
   const [items, setItems] = useState([])
