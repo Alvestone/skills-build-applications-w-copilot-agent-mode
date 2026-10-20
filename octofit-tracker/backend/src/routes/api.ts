@@ -1,5 +1,6 @@
 import { Router, type Request, type Response } from 'express';
 import mongoose, { type Model } from 'mongoose';
+import { getApiBaseUrl } from '../config/api.js';
 import { Activity, Leaderboard, Team, User, Workout } from '../models/index.js';
 
 type OctofitRecord = Record<string, unknown>;
@@ -31,13 +32,8 @@ function collectionRouter(model: Model<OctofitRecord>): Router {
 
 export const apiRouter = Router();
 
-const codespaceName = process.env.CODESPACE_NAME;
-const baseUrl = codespaceName
-  ? `https://${codespaceName}-8000.app.github.dev`
-  : 'http://localhost:8000';
-
 apiRouter.get('/config', (_request, response) => {
-  response.json({ baseUrl });
+  response.json({ baseUrl: getApiBaseUrl() });
 });
 
 apiRouter.use('/users', collectionRouter(User));
