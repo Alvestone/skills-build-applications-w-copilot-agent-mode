@@ -1,20 +1,22 @@
 {
-  "name": "octofit-tracker-api",
+  "name": "octofit-tracker-backend",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "build": "tsc",
-    "dev": "tsx watch src/server.ts",
-    "start": "node dist/server.js"
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "seed": "tsx src/scripts/seed.ts"
   },
   "dependencies": {
-    "express": "^4.21.2",
-    "mongoose": "^9.11.2"
+    "express": "^5.2.1",
+    "mongoose": "^9.10.4"
   },
   "devDependencies": {
-    "@types/express": "^4.17.21",
-    "@types/node": "^22.13.10",
-    "tsx": "^4.19.3",
-    "typescript": "^5.8.2"
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.4",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
   }
 }

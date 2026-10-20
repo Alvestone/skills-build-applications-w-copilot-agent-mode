@@ -39,14 +39,14 @@ jobs:
 
       - name: Find last comment
         id: find-last-comment
-        uses: peter-evans/find-comment@v3
+        uses: peter-evans/find-comment@v4.0.0
         with:
           repository: ${{ env.ISSUE_REPOSITORY }}
           issue-number: ${{ env.ISSUE_NUMBER }}
           direction: last
 
       - name: Update comment - checking work
-        uses: GrantBirki/comment@v2.1.1
+        uses: GrantBirki/comment@v3.0.3
         with:
           repository: ${{ env.ISSUE_REPOSITORY }}
           issue-number: ${{ env.ISSUE_NUMBER }}
@@ -87,22 +87,20 @@ jobs:
           case-sensitive: false
 
       - name: Update comment - step results
-        uses: GrantBirki/comment@v2.1.1
+        uses: GrantBirki/comment@v3.0.3
         with:
           repository: ${{ env.ISSUE_REPOSITORY }}
           issue-number: ${{ env.ISSUE_NUMBER }}
           comment-id: ${{ steps.find-last-comment.outputs.comment-id }}
           edit-mode: replace
-          file: exercise-toolkit/markdown-templates/step-feedback/step-results-table.md
-          vars: |
-            step_number: 2
-            results_table:
-              - description: "Check frontend package.json for React 19"
-                passed: ${{ steps.check-react-19.outcome == 'success' }}
-              - description: "Check backend package.json for Express"
-                passed: ${{ steps.check-express.outcome == 'success' }}
-              - description: "Check backend package.json for Mongoose"
-                passed: ${{ steps.check-mongoose.outcome == 'success' }}
+          body: |
+            ## Step 2 - ${{ steps.check-react-19.outcome == 'success' && steps.check-express.outcome == 'success' && steps.check-mongoose.outcome == 'success' && 'Passed ✅' || 'Fail ❌' }}
+
+            | Status | Description |
+            | ------ | ----------- |
+            | ${{ steps.check-react-19.outcome == 'success' && '✅ - Pass' || '❌ - Fail' }} | Check frontend package.json for React 19 |
+            | ${{ steps.check-express.outcome == 'success' && '✅ - Pass' || '❌ - Fail' }} | Check backend package.json for Express |
+            | ${{ steps.check-mongoose.outcome == 'success' && '✅ - Pass' || '❌ - Fail' }} | Check backend package.json for Mongoose |
 
       # END: Check practical exercise
 
@@ -130,7 +128,7 @@ jobs:
           ref: v0.9.0
 
       - name: Create comment - step finished
-        uses: GrantBirki/comment@v2.1.1
+        uses: GrantBirki/comment@v3.0.3
         with:
           repository: ${{ env.ISSUE_REPOSITORY }}
           issue-number: ${{ env.ISSUE_NUMBER }}
@@ -139,14 +137,14 @@ jobs:
             next_step_number: 3
 
       - name: Create comment - add step content
-        uses: GrantBirki/comment@v2.1.1
+        uses: GrantBirki/comment@v3.0.3
         with:
           repository: ${{ env.ISSUE_REPOSITORY }}
           issue-number: ${{ env.ISSUE_NUMBER }}
           file: ${{ env.STEP_3_FILE }}
 
       - name: Create comment - watching for progress
-        uses: GrantBirki/comment@v2.1.1
+        uses: GrantBirki/comment@v3.0.3
         with:
           repository: ${{ env.ISSUE_REPOSITORY }}
           issue-number: ${{ env.ISSUE_NUMBER }}
