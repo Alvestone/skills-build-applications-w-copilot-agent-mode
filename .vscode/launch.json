@@ -2,19 +2,14 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch Django Backend",
-      "type": "python",
+      "name": "Launch Node.js API",
+      "type": "node",
       "request": "launch",
-      "program": "${workspaceFolder}/octofit-tracker/backend/manage.py",
-      "args": ["runserver", "0.0.0.0:8000"],
-      "django": true,
-      "justMyCode": true,
-      "python": "${workspaceFolder}/octofit-tracker/backend/venv/bin/python",
-      "env": {
-        "PYTHONPATH": "${workspaceFolder}/octofit-tracker/backend/venv/bin/python",
-        "VIRTUAL_ENV": "${workspaceFolder}/octofit-tracker/backend/venv",
-        "PATH": "${workspaceFolder}/octofit-tracker/backend/venv/bin:${env:PATH}"
-      }
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "cwd": "${workspaceFolder}/octofit-tracker/backend",
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"]
     },
     {
       "name": "Launch Vite Frontend",
