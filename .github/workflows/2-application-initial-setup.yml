@@ -93,16 +93,14 @@ jobs:
           issue-number: ${{ env.ISSUE_NUMBER }}
           comment-id: ${{ steps.find-last-comment.outputs.comment-id }}
           edit-mode: replace
-          file: exercise-toolkit/markdown-templates/step-feedback/step-results-table.md
-          vars: |
-            step_number: 2
-            results_table:
-              - description: "Check frontend package.json for React 19"
-                passed: ${{ steps.check-react-19.outcome == 'success' }}
-              - description: "Check backend package.json for Express"
-                passed: ${{ steps.check-express.outcome == 'success' }}
-              - description: "Check backend package.json for Mongoose"
-                passed: ${{ steps.check-mongoose.outcome == 'success' }}
+          body: |
+            ## Step 2 - ${{ steps.check-react-19.outcome == 'success' && steps.check-express.outcome == 'success' && steps.check-mongoose.outcome == 'success' && 'Passed ✅' || 'Fail ❌' }}
+
+            | Status | Description |
+            | ------ | ----------- |
+            | ${{ steps.check-react-19.outcome == 'success' && '✅ - Pass' || '❌ - Fail' }} | Check frontend package.json for React 19 |
+            | ${{ steps.check-express.outcome == 'success' && '✅ - Pass' || '❌ - Fail' }} | Check backend package.json for Express |
+            | ${{ steps.check-mongoose.outcome == 'success' && '✅ - Pass' || '❌ - Fail' }} | Check backend package.json for Mongoose |
 
       # END: Check practical exercise
 

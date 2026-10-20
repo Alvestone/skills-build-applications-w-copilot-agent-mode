@@ -83,14 +83,13 @@ jobs:
           issue-number: ${{ env.ISSUE_NUMBER }}
           comment-id: ${{ steps.find-last-comment.outputs.comment-id }}
           edit-mode: replace
-          file: exercise-toolkit/markdown-templates/step-feedback/step-results-table.md
-          vars: |
-            step_number: 4
-            results_table:
-              - description: "Check server.ts for CODESPACE_NAME"
-                passed: ${{ steps.check-codespace-name.outcome == 'success' }}
-              - description: "Check server.ts for codespace URL"
-                passed: ${{ steps.check-codespace-url.outcome == 'success' }}
+          body: |
+            ## Step 4 - ${{ steps.check-codespace-name.outcome == 'success' && steps.check-codespace-url.outcome == 'success' && 'Passed ✅' || 'Fail ❌' }}
+
+            | Status | Description |
+            | ------ | ----------- |
+            | ${{ steps.check-codespace-name.outcome == 'success' && '✅ - Pass' || '❌ - Fail' }} | Check server.ts for CODESPACE_NAME |
+            | ${{ steps.check-codespace-url.outcome == 'success' && '✅ - Pass' || '❌ - Fail' }} | Check server.ts for codespace URL |
 
       # END: Check practical exercise
 

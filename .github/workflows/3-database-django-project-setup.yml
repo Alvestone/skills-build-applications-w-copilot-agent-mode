@@ -92,16 +92,14 @@ jobs:
           issue-number: ${{ env.ISSUE_NUMBER }}
           comment-id: ${{ steps.find-last-comment.outputs.comment-id }}
           edit-mode: replace
-          file: exercise-toolkit/markdown-templates/step-feedback/step-results-table.md
-          vars: |
-            step_number: 3
-            results_table:
-              - description: "Check database.ts for octofit_db"
-                passed: ${{ steps.check-octofit-db.outcome == 'success' }}
-              - description: "Check database.ts for mongoose"
-                passed: ${{ steps.check-mongoose-config.outcome == 'success' }}
-              - description: "Check seed.ts for test data seed description"
-                passed: ${{ steps.check-seed-script.outcome == 'success' }}
+          body: |
+            ## Step 3 - ${{ steps.check-octofit-db.outcome == 'success' && steps.check-mongoose-config.outcome == 'success' && steps.check-seed-script.outcome == 'success' && 'Passed ✅' || 'Fail ❌' }}
+
+            | Status | Description |
+            | ------ | ----------- |
+            | ${{ steps.check-octofit-db.outcome == 'success' && '✅ - Pass' || '❌ - Fail' }} | Check database.ts for octofit_db |
+            | ${{ steps.check-mongoose-config.outcome == 'success' && '✅ - Pass' || '❌ - Fail' }} | Check database.ts for mongoose |
+            | ${{ steps.check-seed-script.outcome == 'success' && '✅ - Pass' || '❌ - Fail' }} | Check seed.ts for test data seed description |
 
       # END: Check practical exercise
 

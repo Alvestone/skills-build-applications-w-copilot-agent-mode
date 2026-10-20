@@ -113,20 +113,16 @@ jobs:
           issue-number: ${{ env.ISSUE_NUMBER }}
           comment-id: ${{ steps.find-last-comment.outputs.comment-id }}
           edit-mode: replace
-          file: exercise-toolkit/markdown-templates/step-feedback/step-results-table.md
-          vars: |
-            step_number: 5
-            results_table:
-              - description: "Check activities for the API endpoint"
-                passed: ${{ steps.check-activities.outcome == 'success' }}
-              - description: "Check leaderboard for the API endpoint"
-                passed: ${{ steps.check-leaderboard.outcome == 'success' }}
-              - description: "Check teams for the API endpoint"
-                passed: ${{ steps.check-teams.outcome == 'success' }}
-              - description: "Check users for the API endpoint"
-                passed: ${{ steps.check-users.outcome == 'success' }}
-              - description: "Check workouts for the API endpoint"
-                passed: ${{ steps.check-workouts.outcome == 'success' }}
+          body: |
+            ## Step 5 - ${{ steps.check-activities.outcome == 'success' && steps.check-leaderboard.outcome == 'success' && steps.check-teams.outcome == 'success' && steps.check-users.outcome == 'success' && steps.check-workouts.outcome == 'success' && 'Passed ✅' || 'Fail ❌' }}
+
+            | Status | Description |
+            | ------ | ----------- |
+            | ${{ steps.check-activities.outcome == 'success' && '✅ - Pass' || '❌ - Fail' }} | Check activities for the API endpoint |
+            | ${{ steps.check-leaderboard.outcome == 'success' && '✅ - Pass' || '❌ - Fail' }} | Check leaderboard for the API endpoint |
+            | ${{ steps.check-teams.outcome == 'success' && '✅ - Pass' || '❌ - Fail' }} | Check teams for the API endpoint |
+            | ${{ steps.check-users.outcome == 'success' && '✅ - Pass' || '❌ - Fail' }} | Check users for the API endpoint |
+            | ${{ steps.check-workouts.outcome == 'success' && '✅ - Pass' || '❌ - Fail' }} | Check workouts for the API endpoint |
 
       # END: Check practical exercise
 
